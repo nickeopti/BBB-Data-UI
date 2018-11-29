@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Homezones</title>
+        <meta content=''>
+
+        <script src='geocode.js'></script>
+
+        <style>
+            li:hover {
+                background-color: lightgrey;
+                cursor: hand;
+            }
+        </style>
+
+        <script>
+            function load() {
+                var search = document.getElementById('search').value;
+                handle(search);
+            }
+        </script>
+
+    </head>
+    <body>
+        <form onsubmit=''>
+            Search: <input id='search' type='text' name='FirstName'><br>
+            <button type='button' onclick='load();'>Load Data</button>
+        </form>
+        <div>
+            <ul id='placeList'></ul>
+        </div>
+        Zone: <div id='zone'>Search and click on one of the results</div>
+    </body>
+</html>
