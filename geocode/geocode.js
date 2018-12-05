@@ -19,7 +19,7 @@ function getZone(center, callback) {
             callback(JSON.parse(this.responseText).zone);
         }
     };
-    xhttp.open('GET', 'http://localhost:3000/data?data=coordinates-zone&lon=' + center[0] + '&lat=' + center[1], true);
+    xhttp.open('GET', 'http://localhost:3000/data?data=containing-zone&lon=' + center[0] + '&lat=' + center[1], true);
     xhttp.send();
 }
 
