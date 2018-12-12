@@ -1,8 +1,8 @@
 function createGraph(data, day) {
-    var margin = {top: 10, right: 10, bottom: 80, left: 60};
-    var width = document.documentElement.clientWidth - margin.left - margin.right - 20;
-    var height = 550 - margin.top - margin.bottom;
-    var colours = ["#ff8600","#0098ec","#fee200","#ff76ce","#3aec5c","#ff012c","#f8f8f8"];
+    const margin = {top: 10, right: 10, bottom: 80, left: 60};
+    const width = document.documentElement.clientWidth - margin.left - margin.right - 20;
+    const height = 550 - margin.top - margin.bottom;
+    const colours = ["#ff8600","#0098ec","#fee200","#ff76ce","#3aec5c","#ff012c","#f8f8f8"];
 
     var xScale = d3.scaleLinear()
         .domain([0, 24])
@@ -53,9 +53,10 @@ function createGraph(data, day) {
             .tickFormat('')
         );
 
+    var lines = svg.append('g').attr('class', 'data');
     if (day === undefined) {
         for (var i = 7; i > 0; i--) {
-            svg.append('path')
+            lines.append('path')
                 .datum(data[i])
                 .attrs({
                     class: 'line',
@@ -66,7 +67,7 @@ function createGraph(data, day) {
                 });
         }
     } else {
-        svg.append('path')
+        lines.append('path')
             .datum(data[day])
             .attrs({
                 class: 'line',
