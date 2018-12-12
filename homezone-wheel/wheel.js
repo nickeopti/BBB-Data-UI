@@ -9,6 +9,9 @@ const xOffset = 300, yOffset = 300;
 let totalCount = '61,896'; // !!HARD-CODED VALUE!!
 
 function arcCoordinates(fromPercentage, toPercentage, radius, clockwise = true) {
+    if (Math.abs(toPercentage-fromPercentage) % 1 > 0.9999 || Math.abs(toPercentage-fromPercentage) % 1 === 0)
+        toPercentage -= 0.0001;
+
     let fromX = Math.cos(2 * Math.PI * fromPercentage - Math.PI/2) * radius + xOffset;
     let fromY = Math.sin(2 * Math.PI * fromPercentage - Math.PI/2) * radius + yOffset;
     let toX = Math.cos(2 * Math.PI * toPercentage - Math.PI/2) * radius + xOffset;
@@ -106,7 +109,7 @@ function drawPlot(clusters) {
             
             let x = Math.cos(2 * Math.PI * totalPercentage - Math.PI/2) * (outerRadius + 3) + xOffset;
             let y = Math.sin(2 * Math.PI * totalPercentage - Math.PI/2) * (outerRadius + 3) + yOffset;
-            let d = svgArc(arcCoordinates(0, Math.min(0.9999999, totalPercentage), outerTextRadius)) + 
+            let d = svgArc(arcCoordinates(0, totalPercentage, outerTextRadius)) + 
                     ' L ' + x + ' ' + y;
             g.append('path').attr({
                 d: d,
@@ -117,10 +120,10 @@ function drawPlot(clusters) {
                 visibility: 'hidden',
                 class: 'share'
             });
+            let displayDistance = (zone.distance/1000).toFixed(zone.distance/1000 >= 9.5 ? 0 : 1);
             let outerOpposite = totalPercentage > 0.75;
-            g.appendArcText(arcCoordinates(0, Math.min(0.9999999,totalPercentage), outerTextRadius, outerOpposite),
-                            (totalPercentage*100).toFixed(1) + '% lives within ' + 
-                            (zone.distance/1000).toFixed(zone.distance/1000 >= 9.5 ? 0 : 1) + ' km')
+            g.appendArcText(arcCoordinates(0, totalPercentage, outerTextRadius, outerOpposite),
+                            (totalPercentage*100).toFixed(1) + '% lives within ' + displayDistance + ' km')
             .attr('dy', outerOpposite ? -4 : 12)
             .select(function() { return this.parentNode; }).attr({ // gets the parent node as d3 selection object
                 'font-size': 12,
@@ -134,8 +137,7 @@ function drawPlot(clusters) {
             
             let r = (outerRadius-middleRadius)/2 + middleRadius;
             if (2 * Math.PI * zone.percent * r * 1.5 >  outerRadius - middleRadius) {
-                g.appendArcText(arcCoordinates(totalPercentage-zone.percent, totalPercentage, middleTextRadius, opposite),
-                                (zone.distance/1000).toFixed(zone.distance/1000 >= 9.5 ? 0 : 1) + ' km').attr({
+                g.appendArcText(arcCoordinates(totalPercentage-zone.percent, totalPercentage, middleTextRadius, opposite), displayDistance + ' km').attr({
                     'font-size': 10,
                     fill: value > 220 ? 'slategrey' : 'white'
                 });
@@ -143,7 +145,7 @@ function drawPlot(clusters) {
                 let x = Math.cos(2 * Math.PI * (totalPercentage-zone.percent/2) - Math.PI/2) * r + xOffset;
                 let y = Math.sin(2 * Math.PI * (totalPercentage-zone.percent/2) - Math.PI/2) * r + yOffset;
                 let rot = x-xOffset === 0 ? -90 : Math.atan((y - yOffset) / (x-xOffset)) / Math.PI * 180;
-                g.append('text').text((zone.distance/1000).toFixed(zone.distance/1000 >= 9.5 ? 0 : 1) + ' km').attr({
+                g.append('text').text(displayDistance + ' km').attr({
                     'font-size': 10,
                     fill: value > 220 ? 'slategrey' : 'white',
                     'text-anchor': 'middle',
