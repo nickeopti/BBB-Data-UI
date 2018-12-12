@@ -1,0 +1,19 @@
+.line {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+body {
+    background-color: #1d1d1d;
+    color: whitesmoke;
+}
+
+.grid .tick {
+    stroke: lightgray;
+    opacity: 0.5;
+}
+
+.grid path {
+    stroke-width: 0;
+}
