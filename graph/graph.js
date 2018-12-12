@@ -1,5 +1,5 @@
 function createGraph(data, day) {
-    const margin = {top: 10, right: 10, bottom: 80, left: 60};
+    const margin = {top: 50, right: 10, bottom: 80, left: 60};
     const width = document.documentElement.clientWidth - margin.left - margin.right - 20;
     const height = 550 - margin.top - margin.bottom;
     const colours = ["#ff8600","#0098ec","#fee200","#ff76ce","#3aec5c","#ff012c","#f8f8f8"];
@@ -82,7 +82,7 @@ function createGraph(data, day) {
     var legend = d3.select('#plot')
         .append('g')
         .attrs({
-            transform: 'translate(' + (width/2+margin.left) + ', ' + (height+margin.bottom/2) + ')',
+            transform: 'translate(' + (width/2 + margin.left) + ', ' + (height + margin.top + margin.bottom/2) + ')',
             width: 100,
             height: 10
         });
