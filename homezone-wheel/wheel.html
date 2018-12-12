@@ -30,31 +30,11 @@
                 xhttp.send();
             }
         </script>
-
-		<script>
-            var clusters;
-			function loadData(zone, day) {
-                console.log(zone + ' ' + day);
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        clusters = JSON.parse(this.responseText);
-                        var plotElement = document.getElementById('plot');
-                        if (plotElement !== null)
-                            plotElement.parentNode.removeChild(plotElement);
-                        drawPlot();
-                    }
-                };
-                xhttp.open('GET', 'http://localhost:3000/data?data=homezone-wheel&zone=' + zone + '&day=' + day, true);
-                xhttp.send();
-            }
-		</script>
-		
 	</head>
 	<body>
         <form onsubmit=''>
-            Zone: <input id='zone' type='text' name='FirstName' value='145'><br>
-            Day: <input id='day' type='text' name='LastName' value='5'><br>
+            Zone: <input id='zone' type='text' value='145'><br>
+            Day: <input id='day' type='text' value='5'><br>
             <button type='button' onclick='load();'>Load Data</button>
         </form>
 		<div id='wheelPlot'></div>
