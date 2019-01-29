@@ -6,8 +6,6 @@ const middleTextRadius = (outerRadius-middleRadius)/2 + middleRadius;
 const outerTextRadius = outerRadius + 10;
 const xOffset = 300, yOffset = 300;
 
-let totalCount = '61,896'; // !!HARD-CODED VALUE!!
-
 function arcCoordinates(fromPercentage, toPercentage, radius, clockwise = true) {
     if (Math.abs(toPercentage-fromPercentage) % 1 > 0.9999 || Math.abs(toPercentage-fromPercentage) % 1 === 0)
         toPercentage -= 0.0001;
@@ -81,6 +79,9 @@ function drawPlot(clusters) {
     });
     svg.append('defs');
     
+    let totalCount = 0;
+    for (var i = 0; i < clusters.length; i++)
+        totalCount += clusters[i].people;
     let count = svg.append('text').attr({
         'text-anchor': 'middle',
         'alignment-baseline': 'central',
@@ -88,7 +89,7 @@ function drawPlot(clusters) {
         'font-size': '48',
         x: xOffset,
         y: yOffset
-    }).text(totalCount);
+    }).text(totalCount.toLocaleString());
     count.attr({
         'font-size': '' + (count.node().getAttribute('font-size') * (innerRadius*2*0.9) / count.node().textLength.baseVal.value)
     });
