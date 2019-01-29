@@ -44,9 +44,7 @@ function svgSlice(fromPercentage, toPercentage, innerRadius, outerRadius) {
 
 d3.selection.prototype.appendSlice = function(fromPercentage, toPercentage, innerRadius, outerRadius) {
     return this.append('path').attr({
-        d: svgSlice(fromPercentage, toPercentage, innerRadius, outerRadius),
-        //fill: 'none',
-        //stroke: 'black'
+        d: svgSlice(fromPercentage, toPercentage, innerRadius, outerRadius)
     });
 };
 
@@ -95,7 +93,6 @@ function drawPlot(clusters) {
     });
     
     var totalPercentage = 0;
-    //zones.forEach(zone => {
     clusters.forEach(zone => {
         let g = svg.append('g').attr('class', 'slice');
         let value = zone.distance === 0 ? 40 : (totalPercentage+zone.percent/2)*235;
@@ -161,7 +158,6 @@ function drawPlot(clusters) {
     
     svg.append('g').attr('class', 'slice').appendSlice(clusters[0].percent, 1, innerRadius, middleRadius)
         .attr({
-        //fill: grey(((1-clusters[0].percent)/2+clusters[0].percent)*235),
         fill: grey(100)
     });
     svg.appendArcText(arcCoordinates(0, clusters[0].percent, innerTextRadius, true),
